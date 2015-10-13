@@ -167,11 +167,9 @@ abstract class Relation
         // When resetting the relation where clause, we want to shift the first element
         // off of the bindings, leaving only the constraints that the developers put
         // as "extra" on the relationships, and not original relation constraints.
-        try {
-            $results = call_user_func($callback);
-        } finally {
-            static::$constraints = $previous;
-        }
+        $results = call_user_func($callback);
+
+        static::$constraints = $previous;
 
         return $results;
     }

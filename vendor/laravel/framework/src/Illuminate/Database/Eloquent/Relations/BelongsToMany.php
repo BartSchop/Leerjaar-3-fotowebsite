@@ -731,7 +731,7 @@ class BelongsToMany extends Relation
      *
      * @param  array  $records
      * @param  array  $joinings
-     * @return array
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function createMany(array $records, array $joinings = [])
     {

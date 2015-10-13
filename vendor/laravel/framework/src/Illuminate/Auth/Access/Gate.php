@@ -275,7 +275,7 @@ class Gate implements GateContract
                 }
             }
 
-            if (! is_callable([$instance, $ability])) {
+            if (! method_exists($instance, $ability)) {
                 return false;
             }
 

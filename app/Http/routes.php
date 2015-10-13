@@ -15,8 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('register', 'RegisterController@index');
-Route::get('pictures', 'PicturesController@index');
-Route::post('register/create', 'RegisterController@create');
-
-Route::get('login', 'LoginController@index');
+Route::get('test', 'Controller@testcontent');
+Route::get('contacts', 'Controller@contacts');

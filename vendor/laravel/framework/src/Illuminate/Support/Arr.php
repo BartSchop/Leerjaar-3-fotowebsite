@@ -424,11 +424,11 @@ class Arr
     {
         foreach ($array as &$value) {
             if (is_array($value)) {
-                $value = static::sortRecursive($value);
+                $value = self::sortRecursive($value);
             }
         }
 
-        if (static::isAssoc($array)) {
+        if (self::isAssoc($array)) {
             ksort($array);
         } else {
             sort($array);

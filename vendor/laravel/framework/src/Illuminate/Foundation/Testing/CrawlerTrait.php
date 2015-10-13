@@ -67,32 +67,6 @@ trait CrawlerTrait
     }
 
     /**
-     * Visit the given URI with a JSON request.
-     *
-     * @param  string  $method
-     * @param  string  $uri
-     * @param  array  $data
-     * @param  array  $headers
-     * @return $this
-     */
-    public function json($method, $uri, array $data = [], array $headers = [])
-    {
-        $content = json_encode($data);
-
-        $headers = array_merge([
-            'CONTENT_LENGTH' => mb_strlen($content, '8bit'),
-            'CONTENT_TYPE' => 'application/json',
-            'Accept' => 'application/json',
-        ], $headers);
-
-        $this->call(
-            $method, $uri, [], [], [], $this->transformHeadersToServerVars($headers), $content
-        );
-
-        return $this;
-    }
-
-    /**
      * Visit the given URI with a GET request.
      *
      * @param  string  $uri
@@ -289,7 +263,7 @@ trait CrawlerTrait
         } catch (PHPUnitException $e) {
             $message = $message ?: "A request to [{$uri}] failed. Received status code [{$status}].";
 
-            throw new HttpException($message, null, $this->response->exception);
+            throw new PHPUnitException($message, null, $this->response->exception);
         }
     }
 
@@ -522,7 +496,7 @@ trait CrawlerTrait
      */
     protected function getInputOrTextAreaValue($selector)
     {
-        $field = $this->filterByNameOrId($selector, ['input', 'textarea']);
+        $field = $this->filterByNameOrId($selector);
 
         if ($field->count() == 0) {
             throw new Exception("There are no elements with the name or ID [$selector].");
@@ -1054,22 +1028,14 @@ trait CrawlerTrait
      * Filter elements according to the given name or ID attribute.
      *
      * @param  string  $name
-     * @param  array|string  $elements
+     * @param  string  $element
      * @return \Symfony\Component\DomCrawler\Crawler
      */
-    protected function filterByNameOrId($name, $elements = '*')
+    protected function filterByNameOrId($name, $element = '*')
     {
         $name = str_replace('#', '', $name);
 
-        $id = str_replace(['[', ']'], ['\\[', '\\]'], $name);
-
-        $elements = is_array($elements) ? $elements : [$elements];
-
-        array_walk($elements, function (&$element) use ($name, $id) {
-            $element = "{$element}#{$id}, {$element}[name='{$name}']";
-        });
-
-        return $this->crawler->filter(implode(', ', $elements));
+        return $this->crawler->filter("{$element}#{$name}, {$element}[name='{$name}']");
     }
 
     /**

@@ -123,7 +123,6 @@ class CookieJar implements JarContract
      * Remove a cookie from the queue.
      *
      * @param  string  $name
-     * @return void
      */
     public function unqueue($name)
     {

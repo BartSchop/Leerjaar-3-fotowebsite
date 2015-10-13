@@ -888,7 +888,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      */
     public function getActualClassNameForMorph($class)
     {
-        return Arr::get(Relation::morphMap(), $class, $class);
+        return array_get(Relation::morphMap(), $class, $class);
     }
 
     /**
@@ -1189,7 +1189,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      */
     protected function performDeleteOnModel()
     {
-        $this->setKeysForSaveQuery($this->newQueryWithoutScopes())->delete();
+        $this->setKeysForSaveQuery($this->newQuery())->delete();
     }
 
     /**
@@ -1344,13 +1344,11 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      * Set the observable event names.
      *
      * @param  array  $observables
-     * @return $this
+     * @return void
      */
     public function setObservableEvents(array $observables)
     {
         $this->observables = $observables;
-
-        return $this;
     }
 
     /**
@@ -1759,26 +1757,22 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      * Set the value of the "created at" attribute.
      *
      * @param  mixed  $value
-     * @return $this
+     * @return void
      */
     public function setCreatedAt($value)
     {
         $this->{static::CREATED_AT} = $value;
-
-        return $this;
     }
 
     /**
      * Set the value of the "updated at" attribute.
      *
      * @param  mixed  $value
-     * @return $this
+     * @return void
      */
     public function setUpdatedAt($value)
     {
         $this->{static::UPDATED_AT} = $value;
-
-        return $this;
     }
 
     /**
@@ -1961,13 +1955,11 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      * Set the table associated with the model.
      *
      * @param  string  $table
-     * @return $this
+     * @return void
      */
     public function setTable($table)
     {
         $this->table = $table;
-
-        return $this;
     }
 
     /**
@@ -2004,13 +1996,11 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      * Set the primary key for the model.
      *
      * @param  string  $key
-     * @return $this
+     * @return void
      */
     public function setKeyName($key)
     {
         $this->primaryKey = $key;
-
-        return $this;
     }
 
     /**
@@ -2102,13 +2092,11 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      * Set the number of models to return per page.
      *
      * @param  int   $perPage
-     * @return $this
+     * @return void
      */
     public function setPerPage($perPage)
     {
         $this->perPage = $perPage;
-
-        return $this;
     }
 
     /**
@@ -2135,13 +2123,11 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      * Set the hidden attributes for the model.
      *
      * @param  array  $hidden
-     * @return $this
+     * @return void
      */
     public function setHidden(array $hidden)
     {
         $this->hidden = $hidden;
-
-        return $this;
     }
 
     /**
@@ -2184,13 +2170,11 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      * Set the visible attributes for the model.
      *
      * @param  array  $visible
-     * @return $this
+     * @return void
      */
     public function setVisible(array $visible)
     {
         $this->visible = $visible;
-
-        return $this;
     }
 
     /**
@@ -2210,13 +2194,11 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      * Set the accessors to append to model arrays.
      *
      * @param  array  $appends
-     * @return $this
+     * @return void
      */
     public function setAppends(array $appends)
     {
         $this->appends = $appends;
-
-        return $this;
     }
 
     /**
@@ -2393,13 +2375,11 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      * Set the relationships that are touched on save.
      *
      * @param  array  $touches
-     * @return $this
+     * @return void
      */
     public function setTouchedRelations(array $touches)
     {
         $this->touches = $touches;
-
-        return $this;
     }
 
     /**
@@ -2416,13 +2396,11 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      * Set whether IDs are incrementing.
      *
      * @param  bool  $value
-     * @return $this
+     * @return void
      */
     public function setIncrementing($value)
     {
         $this->incrementing = $value;
-
-        return $this;
     }
 
     /**
@@ -2770,18 +2748,6 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
     }
 
     /**
-     * Determine whether a value is Date / DateTime castable for inbound manipulation.
-     *
-     * @param  string  $key
-     * @return bool
-     */
-    protected function isDateCastable($key)
-    {
-        return $this->hasCast($key) &&
-               in_array($this->getCastType($key), ['date', 'datetime'], true);
-    }
-
-    /**
      * Determine whether a value is JSON castable for inbound manipulation.
      *
      * @param  string  $key
@@ -2789,8 +2755,13 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      */
     protected function isJsonCastable($key)
     {
-        return $this->hasCast($key) &&
-               in_array($this->getCastType($key), ['array', 'json', 'object', 'collection'], true);
+        if ($this->hasCast($key)) {
+            return in_array(
+                $this->getCastType($key), ['array', 'json', 'object', 'collection'], true
+            );
+        }
+
+        return false;
     }
 
     /**
@@ -2837,9 +2808,6 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
                 return json_decode($value, true);
             case 'collection':
                 return new BaseCollection(json_decode($value, true));
-            case 'date':
-            case 'datetime':
-                return $this->asDateTime($value);
             default:
                 return $value;
         }
@@ -2850,7 +2818,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      *
      * @param  string  $key
      * @param  mixed   $value
-     * @return $this
+     * @return void
      */
     public function setAttribute($key, $value)
     {
@@ -2866,7 +2834,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
         // If an attribute is listed as a "date", we'll convert it from a DateTime
         // instance into a form proper for storage on the database tables using
         // the connection grammar's date format. We will auto set the values.
-        elseif ($value && (in_array($key, $this->getDates()) || $this->isDateCastable($key))) {
+        elseif (in_array($key, $this->getDates()) && $value) {
             $value = $this->fromDateTime($value);
         }
 
@@ -2875,8 +2843,6 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
         }
 
         $this->attributes[$key] = $value;
-
-        return $this;
     }
 
     /**
@@ -3029,7 +2995,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      *
      * @param  array  $attributes
      * @param  bool   $sync
-     * @return $this
+     * @return void
      */
     public function setRawAttributes(array $attributes, $sync = false)
     {
@@ -3038,8 +3004,6 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
         if ($sync) {
             $this->syncOriginal();
         }
-
-        return $this;
     }
 
     /**

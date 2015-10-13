@@ -54,30 +54,6 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     }
 
     /**
-     * Get the average value of a given key.
-     *
-     * @param  string|null  $key
-     * @return mixed
-     */
-    public function avg($key = null)
-    {
-        if ($count = $this->count()) {
-            return $this->sum($key) / $count;
-        }
-    }
-
-    /**
-     * Alias for the avg method.
-     *
-     * @param  string|null  $key
-     * @return mixed
-     */
-    public function average($key = null)
-    {
-        return $this->avg($key);
-    }
-
-    /**
      * Collapse the collection of items into a single array.
      *
      * @return static
@@ -256,14 +232,12 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     /**
      * Remove an item from the collection by key.
      *
-     * @param  string|array  $keys
+     * @param  mixed  $key
      * @return $this
      */
-    public function forget($keys)
+    public function forget($key)
     {
-        foreach ((array) $keys as $key) {
-            $this->offsetUnset($key);
-        }
+        $this->offsetUnset($key);
 
         return $this;
     }
