@@ -29,7 +29,10 @@ class RegisterController extends Controller
     {
         $input = Request::all();
         $user = new User;
-        $user->username = $input['text'];
+        $user->firstname = $input['firstname'];
+        $user->lastname = $input['lastname'];
+        $user->username = $input['username'];
+        $user->dateofbirth = $input['date'];
         $user->email = $input['email'];
         $user->password = $input['password'];
         $user->save();
