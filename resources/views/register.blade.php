@@ -36,8 +36,8 @@
 		</div>
 
 		<div class="form-group">
-			{!! Form::label('passwordrepeat', 'Password repeat')!!}
-			{!! Form::input('password', 'passwordrepeat', '', ['class' => 'form-control'])!!}
+			{!! Form::label('password_confirmation', 'Password Confirmation')!!}
+			{!! Form::input('password', 'password_confirmation', '', ['class' => 'form-control'])!!}
 		</div>
 		<!-- Add Picture Form Input -->
 
@@ -45,4 +45,13 @@
 			{!! Form::submit('Create new user', ['class' => 'btn btn-primary form-control']) !!}
 		</div>
 	{!! Form::close() !!}
+
+
+	@if ($errors->any())
+		<ul class="alert alert-danger">
+			@foreach ($errors->all() as $error)
+				<li>{{ $error }}</li>
+			@endforeach
+		</ul>
+	@endif
 @stop

@@ -25,8 +25,9 @@ class RegisterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Requests\CreateUser $request)
     {
+        
         $input = Request::all();
         $user = new User;
         $user->firstname = $input['firstname'];
