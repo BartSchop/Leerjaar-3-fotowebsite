@@ -20,3 +20,4 @@ Route::get('pictures', 'PicturesController@index');
 Route::post('register/create', 'RegisterController@create');
 
 Route::get('login', 'LoginController@index');
+Route::post('login', 'LoginController@check');

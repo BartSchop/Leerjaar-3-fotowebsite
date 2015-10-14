@@ -4,15 +4,15 @@
 
 <h3>Inloggen</h3>
 
-{!! Form::open(['url' => 'inloggen/check']) !!}
+{!! Form::open(['url' => 'login']) !!}
 	<div class="form-group">
-		{!! Form::label('username', 'User Name:') !!}
-		{!! Form::text('text', '', ['class' => 'form-control']) !!}
+		{!! Form::label('email', 'E-mail:') !!}
+		{!! Form::text('email', '', ['class' => 'form-control']) !!}
 	</div>
 
 	<div class="form-group">
 		{!! Form::label('password', 'Password')!!}
-		{!! Form::text('text', '', ['class' => 'form-control'])!!}
+		{!! Form::input('password', 'password', '', ['class' => 'form-control'])!!}
 	</div>
 
 	<!-- Add Picture Form Input -->
@@ -25,6 +25,12 @@
 
 	<a href="/">Terug</a>
 
-
+	@if ($errors->any())
+		<ul class="alert alert-danger">
+			@foreach ($errors->all() as $error)
+				<li>{{ $error }}</li>
+			@endforeach
+		</ul>
+	@endif
 
 @stop

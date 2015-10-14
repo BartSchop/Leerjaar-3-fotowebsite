@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Auth;
+use Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -23,10 +24,20 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function check(Requests\CreateUserLogin $request)
     {
-        //
-    }
+      $input = Request::all();
+      
+      return $input['password'];
+    /**if (Auth::attempt(['email' => $input['email'], 'password' => $input['password']])) {
+
+            return redirect('/');
+        }  
+    else{
+        $email = $input['email'];
+        return redirect('login');
+    }**/
+}
 
     /**
      * Store a newly created resource in storage.
