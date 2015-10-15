@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class LoginController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +15,7 @@ class LoginController extends Controller
      */
     public function index()
     {
-        return view('login');
+        return view('user/profile');
     }
 
     /**
@@ -24,14 +23,10 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function check(Requests\CreateUserLogin $request)
+    public function create()
     {
-      if (Auth::attempt(['email' => $request['email'], 'password' => $request['password']])){
-            return redirect('/');
-      } else {
-            return redirect('login');
-      }
-}
+        //
+    }
 
     /**
      * Store a newly created resource in storage.

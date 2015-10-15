@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('profile', 'UserController@index');
 Route::get('register', 'RegisterController@index');
 Route::get('pictures', 'PicturesController@index');
 Route::post('register/create', 'RegisterController@create');

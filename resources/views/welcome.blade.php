@@ -8,7 +8,7 @@
 	<ul>
 		<li><a href="login">Login</a></li>
 		<li><a href="register">Register</a></li>
-		<li>Front page</li>
+		<li><a href="profile">Your Profile</a></li>
 		<li>FAQ</li>
 		<li>Test</li>
 	</ul>
