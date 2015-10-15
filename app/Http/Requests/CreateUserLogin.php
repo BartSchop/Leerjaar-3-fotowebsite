@@ -24,7 +24,7 @@ class CreateUserLogin extends Request
     public function rules()
     {
         return [
-            'email' => 'required|email',
+            'email' => 'required|email|min:5',
             'password' => 'required|min:5|alphaNum'
         ];
     }
