@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Form;
 use App\Comment;
+use App\Like;
 use Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -51,7 +52,21 @@ class FormController extends Controller
         if (\Auth::check()) {
             $forms = Form::findorfail($id);
             $comments = Comment::all();
-            return view('form.show', compact('forms'), compact('comments'));
+            $likes = Like::all();
+            $likesis = 0;
+            $likesamount = 0;
+
+            foreach ($likes as $like) {
+                if ($forms->id == $like->form_id and \Auth::user()->id == $like->user_id) {
+                    $likesis = 1;
+                } else {
+                }
+                if ($forms->id == $like->form_id) {
+                    $likesamount = $likesamount + 1;
+                } else{
+                }
+            }
+            return view('form.show', compact('forms'), compact('comments', 'likesis', 'likesamount') );
         } else {  
             return redirect('auth/login');
         }
@@ -85,6 +100,24 @@ class FormController extends Controller
     public function destroy($id)
     {
         return 'Deleting.....';
+    }
+
+    public function like(Request $request, $id)
+    {
+        if (\Auth::check()) {
+            $forms = Form::findorfail($id);
+            $userid = \Auth::user();
+
+            Like::create([
+                'user_id' => $userid->id,
+                'form_id' => $forms->id,
+                ]);
+
+            return redirect( url('/form', $forms->id ) );
+            
+        } else {  
+            return redirect('auth/login');
+        }
     }
 
 }

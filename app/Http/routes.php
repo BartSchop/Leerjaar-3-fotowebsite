@@ -31,6 +31,7 @@ Route::post('form/store', 'FormController@store');
 Route::get('form', 'FormController@index');
 Route::post('form/update', 'FormController@update');
 Route::get('user/form', 'UserController@index');
+Route::get('form/like/{id}', 'FormController@like');
 Route::post('comment/store/{id}', 'CommentController@store');
 Route::get('form/comment/{id}', 'CommentController@index');
 Route::get('form/edit/{id}', 'FormController@edit');
