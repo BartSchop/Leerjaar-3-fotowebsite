@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Request;
+use App\Form;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -15,7 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('user/profile');
+        $forms = Form::all();
+        return view('user.posts', compact('forms'));
     }
 
     /**

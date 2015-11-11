@@ -15,10 +15,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('profile', 'UserController@index');
-Route::get('register', 'RegisterController@index');
-Route::get('pictures', 'PicturesController@index');
-Route::post('register/create', 'RegisterController@create');
 
-Route::get('login', 'LoginController@index');
-Route::post('login', 'LoginController@check');
+// Authentication routes...
+Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::post('auth/login', 'Auth\AuthController@postLogin');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+// Registration routes...
+Route::get('auth/register', 'Auth\AuthController@getRegister');
+Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+//Forms routes...
+Route::get('form/create', 'FormController@create');
+Route::post('form/store', 'FormController@store');
+Route::get('form', 'FormController@index');
+Route::post('form/update', 'FormController@update');
+Route::get('user/form', 'UserController@index');
+Route::get('form/edit/{id}', 'FormController@edit');
+Route::get('form/{id}', 'FormController@show');
