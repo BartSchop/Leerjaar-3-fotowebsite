@@ -8,19 +8,22 @@ use App\Comment;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class UserController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $forms = Form::all();
-        $comments = Comment::all();
-
-        return view('user.posts', compact('forms'), compact('comments'));
+        if (\Auth::check()) {
+            $forms = Form::all();
+            $forms = Form::findorfail($id);
+            return view('comment.index', compact('forms'));
+        } else {  
+            return redirect('auth/login');
+        }
     }
 
     /**
@@ -39,9 +42,18 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        $user = \Auth::user();
+        $input = Request::all();
+        $forms = Form::findorfail($id);
+
+        Comment::create([
+            'content' => $input['content'],
+            'user_id' => $user->id,
+            'form_id' => $forms->id,
+            ]);
+        return redirect('/form');
     }
 
     /**

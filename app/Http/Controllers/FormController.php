@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Form;
+use App\Comment;
 use Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -49,7 +50,8 @@ class FormController extends Controller
     {
         if (\Auth::check()) {
             $forms = Form::findorfail($id);
-            return view('form.show', compact('forms'));
+            $comments = Comment::all();
+            return view('form.show', compact('forms'), compact('comments'));
         } else {  
             return redirect('auth/login');
         }
@@ -84,4 +86,5 @@ class FormController extends Controller
     {
         return 'Deleting.....';
     }
+
 }

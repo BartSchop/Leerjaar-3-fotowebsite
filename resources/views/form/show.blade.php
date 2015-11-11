@@ -16,6 +16,14 @@
 		{{ $forms->content }}
 	</article>
 	<hr>
+	@foreach ($comments as $comment)
+		@if ($forms->id == $comment->form_id)
+			<article>
+				{{ $comment->content }}
+			</article>
+			<hr>
+		@endif
+	@endforeach
 </div>
 	<a href="/form">Go back</a>
 	<a href="{{ url('/form/edit', $forms->id) }}"><p>Change form</p></a>
