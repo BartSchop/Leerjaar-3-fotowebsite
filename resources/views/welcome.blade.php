@@ -2,12 +2,16 @@
 
 @section('home')
 <ul>
-    <li>home</li>
-    <li><a href="auth/login">login</a></li>
-    <li><a href="auth/register">register</a></li>
-    <li><a href="auth/logout">logout</a></li>
+    <li>Home</li>
     <li><a href="form">Pictures</a></li>
+    @if (\Auth::check())
+	    <li><a href="auth/logout">Logout</a></li>
+	@else
+	    <li><a href="auth/login">Login</a></li>
+    	<li><a href="auth/register">Register</a></li>
+	@endif
 </ul>
 <hr>
 <h1>Home page</h1>
+
 @stop
