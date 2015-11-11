@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Form;
-use App\Comment;
 use Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -42,6 +41,14 @@ class FormController extends Controller
             'tag' => $input['tag'],
             'user_id' => $user->id,
             ]);
+
+        $imageName = $input['content'] . '.' . 
+        $input['content']->getClientOriginalExtension();
+
+        $input['content']->move(
+            base_path() . '/public/images/', $imageName
+        );
+
         return redirect('/form');
     }
 
@@ -50,8 +57,7 @@ class FormController extends Controller
     {
         if (\Auth::check()) {
             $forms = Form::findorfail($id);
-            $comments = Comment::all();
-            return view('form.show', compact('forms'), compact('comments'));
+            return view('form.show', compact('forms'));
         } else {  
             return redirect('auth/login');
         }
@@ -86,5 +92,4 @@ class FormController extends Controller
     {
         return 'Deleting.....';
     }
-
 }

@@ -24,31 +24,66 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Title</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="title" value="{{ old('title') }}">
+                                <input type="text" class="form-control" name="title" value="{{ old('title') }}" >
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label class="col-md-4 control-label">Content</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="content">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary" style="margin-right: 15px;">
-                                    Create
-                                </button>
-                                <a href="/form">Go back</a>
+                                <input type="file" class="form-control" name="content" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label">Tag</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="tag" value="{{ old('tag') }}">
+                                <input type="text" class="form-control" name="tag" value="{{ old('tag') }}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary" style="margin-right: 15px">
+                                    Create
+                                </button>
+                                <a href="/form">Go back</a>
                             </div>
                         </div>
                     </form>
+
+                    {!! Form::open(
+                        array(
+                            'url' => 'form/store', 
+                            'class' => 'form-horizontal', 
+                            'novalidate' => 'novalidate', 
+                            'files' => true)) !!}
+
+                    <div class="form-group">
+                        {!! Form::label('Title', null, array('class'=>'col-md-4 control-label')) !!}
+                        <div class="col-md-6">
+                            {!! Form::text('title', null, array('class'=>'form-control')) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('Content', null, array('class'=>'col-md-4 control-label')) !!}
+                        <div class="col-md-6">
+                            {!! Form::file('content', null, array('class'=>'form-control')) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('Tag', null, array('class'=>'col-md-4 control-label')) !!}
+                        <div class="col-md-6">
+                            {!! Form::text('tag', null, array('class'=>'form-control')) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-4">
+                            {!! Form::submit('Create', array('class'=>'btn btn-primary', 'style'=>'margin-right: 15px')) !!}
+                            <a href="/form">Go back</a>
+                        </div>
+                    </div>
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
