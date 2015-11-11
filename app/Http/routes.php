@@ -26,6 +26,7 @@ Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 //Forms routes...
+Route::get('form/comment', 'CommentController@index');
 Route::get('form/create', 'FormController@create');
 Route::post('form/store', 'FormController@store');
 Route::get('form', 'FormController@index');

@@ -7,7 +7,7 @@
     <li><a href="user/form">Your Posts</a></li>
     <li><a href="auth/logout">logout</a></li>
     <li><a href="form">Pictures</a></li>
-</ul>
+</ul> 
 <hr>
 <div>
 	@foreach ($forms as $form)
