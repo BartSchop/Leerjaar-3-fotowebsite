@@ -38,6 +38,7 @@ class FormController extends Controller
         Form::create([
             'title' => $input['title'],
             'content' => $input['content'],
+            'tag' => $input['tag'],
             'user_id' => $user->id,
             ]);
         return redirect('/form');

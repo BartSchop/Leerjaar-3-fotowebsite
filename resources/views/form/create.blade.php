@@ -42,6 +42,12 @@
                                 <a href="/form">Go back</a>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Tag</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="tag" value="{{ old('tag') }}">
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
