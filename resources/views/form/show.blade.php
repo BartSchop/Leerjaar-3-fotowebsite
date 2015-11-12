@@ -37,6 +37,7 @@
 	<a href="{{ url('/form/edit', $forms->id) }}"><p>Change form</p></a>
 	<a href="{{ url('/form/comment', $forms->id) }}"><p>Comment</p></a>
 	<a href="{{ url('/report/form', $forms->id) }}"><p>Report</p></a>
+	<a href="rand/pic"><p>Random Picture</p></a>
 </div>
 
 <div class="comment">
