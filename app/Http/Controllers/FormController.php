@@ -17,6 +17,7 @@ class FormController extends Controller
     {
         if (\Auth::check()) {
             $forms = Form::all();
+
             return view('form.index', compact('forms'));
         } else {  
             return redirect('auth/login');

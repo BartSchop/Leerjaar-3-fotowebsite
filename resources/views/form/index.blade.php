@@ -2,9 +2,10 @@
 
 @section('home')
 <ul>
+    <li><button>Search</button></li>
+    <li><div class="col-md-2"><input type="text" class="form-control" name="search"></div></li>
     <li><a href="/">Home</a></li>
     <li><a href="form/create">Create</a></li>
-    <li><a href="user/form">Your Posts</a></li>
     <li><a href="auth/logout">logout</a></li>
     <li><a href="form">Pictures</a></li>
 </ul> 

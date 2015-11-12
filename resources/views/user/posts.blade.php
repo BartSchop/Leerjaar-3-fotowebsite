@@ -4,10 +4,9 @@
 
 <ul>
     <li><a href="/">Home</a></li>
-    <li><a href="form/create">Create</a></li>
-    <li><a href="user/form">Your Posts</a></li>
-    <li><a href="auth/logout">Logout</a></li>
-    <li><a href="form">Pictures</a></li>
+    <li><a href="/user/profile">Profile</a></li>
+    <li><a href="/auth/logout">Logout</a></li>
+    <li><a href="/user/messages">Inbox</a></li>
 </ul>
 <hr>
 <div>

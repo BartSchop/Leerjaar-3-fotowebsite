@@ -17,10 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $forms = Form::all();
-        $comments = Comment::all();
-
-        return view('user.posts', compact('forms'), compact('comments'));
+        return view('user.index');
     }
 
     /**
@@ -50,9 +47,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $forms = Form::all();
+        $comments = Comment::all();
+
+        return view('user.posts', compact('forms'), compact('comments'));
     }
 
     /**

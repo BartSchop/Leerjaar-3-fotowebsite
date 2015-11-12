@@ -53,7 +53,7 @@ class CommentController extends Controller
             'user_id' => $user->id,
             'form_id' => $forms->id,
             ]);
-        return redirect('/form');
+        return redirect(url('/form', $id));
     }
 
     /**
