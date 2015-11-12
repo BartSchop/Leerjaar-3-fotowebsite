@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Form;
 use App\Comment;
 use App\Like;
+use App\User;
 use Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -17,8 +18,9 @@ class FormController extends Controller
     {
         if (\Auth::check()) {
             $forms = Form::all();
+            $user = \Auth::user();
 
-            return view('form.index', compact('forms'));
+            return view('form.index', compact('forms', 'user'));
         } else {  
             return redirect('auth/login');
         }
@@ -53,10 +55,20 @@ class FormController extends Controller
         if (\Auth::check()) {
             $forms = Form::findorfail($id);
             $comments = Comment::all();
+            $users = User::all();
+            $user = \Auth::user();
             $likes = Like::all();
+
+            foreach ($users as $formuser) {
+                if ($forms->user_id == $formuser->id) {
+                    $username = $formuser->name;
+                    $userlastname = $formuser->lastname;
+                    $userid = $formuser->id;
+                }
+            }
+
             $likesis = 0;
             $likesamount = 0;
-
             foreach ($likes as $like) {
                 if ($forms->id == $like->form_id and \Auth::user()->id == $like->user_id) {
                     $likesis = 1;
@@ -67,7 +79,7 @@ class FormController extends Controller
                 } else{
                 }
             }
-            return view('form.show', compact('forms'), compact('comments', 'likesis', 'likesamount') );
+            return view('form.show', compact('forms'), compact('comments', 'likesis', 'likesamount', 'user', 'username', 'userlastname', 'userid') );
         } else {  
             return redirect('auth/login');
         }
@@ -76,18 +88,7 @@ class FormController extends Controller
     public function edit($id)
     {
         if (\Auth::check()) {
-
-            $forms = Form::findorfail($id);
-            $formuserid = $forms->user_id;
-
-            $user = \Auth::user();
-            $userid = $user->id;
-
-            if ($userid == $formuserid) {
-                 return view('form.edit', compact('forms'));
-            } else {
-                 return Redirect('/form');
-            } 
+            return view('form.edit', compact('forms'));
         } else {
             return redirect('auth/login');
         }

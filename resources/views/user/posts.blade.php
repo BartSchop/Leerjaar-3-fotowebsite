@@ -5,6 +5,7 @@
 <ul>
     <li><a href="/">Home</a></li>
     <li><a href="/user/profile">Profile</a></li>
+    <li><a href="/user/favorites">Liked Pictures</a></li>
     <li><a href="/auth/logout">Logout</a></li>
     <li><a href="/user/messages">Inbox</a></li>
 </ul>

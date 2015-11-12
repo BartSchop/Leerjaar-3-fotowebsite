@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use Request;
-use App\Form;
-use App\Comment;
+use App\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class UserController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = \Auth::user();
-        $status = $user->status;
-        return view('user.index', compact('status'));
+        //
     }
 
     /**
@@ -49,12 +46,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        $forms = Form::all();
-        $comments = Comment::all();
-
-        return view('user.posts', compact('forms'), compact('comments'));
+        $user = User::findorfail($id);
+        return view('admin.show', compact('user'));
     }
 
     /**
