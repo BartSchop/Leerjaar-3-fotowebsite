@@ -17,5 +17,8 @@
 @elseif ($status == 2)
 	<h4>Welcome user</h4>
 	<p>current state: Locked - Please check your inbox for any information.</p>
+@elseif ($status == 3)
+	<h4>Welcome user</h4>
+	<p>current state: Banned - Please check your inbox for any information.</p>
 @endif
 @stop

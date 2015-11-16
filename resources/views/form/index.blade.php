@@ -1,5 +1,6 @@
 @extends('app')
 
+
 @section('home')
 <ul>
     <li><button>Search</button></li>
@@ -12,6 +13,11 @@
     <li><a href="/user/profile">Your Profile</a></li>
 </ul> 
 <hr>
+
+
+@if ($user->status == 3)
+    <p>Account has beed banned, please check your inbox</p>
+@else
 <div>
 	@foreach ($forms as $form)
 		<article>
@@ -19,5 +25,6 @@
 		</article>
 	@endforeach
 </div>
+@endif
 
 @stop
