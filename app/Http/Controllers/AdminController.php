@@ -3,27 +3,20 @@
 namespace App\Http\Controllers;
 
 use Request;
-use App\Form;
-use App\Comment;
+use App\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class CommentController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        if (\Auth::check()) {
-            $forms = Form::all();
-            $forms = Form::findorfail($id);
-            return view('comment.index', compact('forms'));
-        } else {  
-            return redirect('auth/login');
-        }
+        //
     }
 
     /**
@@ -42,18 +35,9 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
-        $user = \Auth::user();
-        $input = Request::all();
-        $forms = Form::findorfail($id);
-
-        Comment::create([
-            'content' => $input['content'],
-            'user_id' => $user->id,
-            'form_id' => $forms->id,
-            ]);
-        return redirect(url('/form', $id));
+        //
     }
 
     /**
@@ -64,7 +48,8 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findorfail($id);
+        return view('admin.show', compact('user'));
     }
 
     /**

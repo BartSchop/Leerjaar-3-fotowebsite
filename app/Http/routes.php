@@ -30,9 +30,15 @@ Route::get('form/create', 'FormController@create');
 Route::post('form/store', 'FormController@store');
 Route::get('form', 'FormController@index');
 Route::post('form/update', 'FormController@update');
-Route::get('user/form', 'UserController@index');
+
+//User Routes
+Route::get('user/form', 'UserController@show');
+Route::get('user/profile', 'UserController@index');
+
+//Id routes
 Route::get('form/like/{id}', 'FormController@like');
 Route::post('comment/store/{id}', 'CommentController@store');
 Route::get('form/comment/{id}', 'CommentController@index');
 Route::get('form/edit/{id}', 'FormController@edit');
 Route::get('form/{id}', 'FormController@show');
+Route::get('admin/user/info/{id}', 'AdminController@show');
