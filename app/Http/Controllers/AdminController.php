@@ -72,7 +72,11 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findorfail($id);
+        $input = Request::all();
+
+        $form = User::where('id', $id)->update(['status' => $input['number']]);
+        return redirect(url('/admin/user/info', $user->id));
     }
 
     /**

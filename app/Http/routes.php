@@ -34,6 +34,7 @@ Route::post('form/update', 'FormController@update');
 //User Routes
 Route::get('user/form', 'UserController@show');
 Route::get('user/profile', 'UserController@index');
+Route::post('admin/update/user/{id}', 'AdminController@update');
 
 //Id routes
 Route::get('form/like/{id}', 'FormController@like');
