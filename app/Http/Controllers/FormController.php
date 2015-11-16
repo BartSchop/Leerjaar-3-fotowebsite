@@ -137,9 +137,13 @@ class FormController extends Controller
             $first = $form->first();
             $last = $form->last();
 
-            $id = mt_rand($first->id, $last->id);
+            do {
+              $id = mt_rand($first->id, $last->id);
+              $forms = Form::find($id);
+            } while (!$forms);
+        
+            
 
-            $forms = Form::findorfail($id);
             $comments = Comment::all();
             $users = User::all();
             $user = \Auth::user();
