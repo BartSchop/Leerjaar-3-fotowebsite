@@ -1,5 +1,6 @@
 @extends('app')
 
+
 @section('home')
 <ul>
     <li><button>Search</button></li>
@@ -14,6 +15,11 @@
     <li><a href="/form/random" class="btn-success" style="padding: 7px; float: right; margin-right: 10px; border-radius: 3px">Random</a></li>
 </ul> 
 <hr>
+
+
+@if ($user->status == 3)
+    <p>Account has beed banned, please check your inbox</p>
+@else
 <div>
 	@foreach ($forms as $form)
 		<article>
@@ -22,5 +28,6 @@
         <hr>
 	@endforeach
 </div>
+@endif
 
 @stop

@@ -35,8 +35,11 @@ Route::get('form/random', 'FormController@random');
 //User Routes
 Route::get('user/form', 'UserController@show');
 Route::get('user/profile', 'UserController@index');
+Route::post('admin/update/user/{id}', 'AdminController@update');
 
 //Id routes
+Route::get('report/form/{id}', 'AdminController@report');
+Route::get('admin/remove/post/{id}', 'AdminController@delete');
 Route::get('form/like/{id}', 'FormController@like');
 Route::post('comment/store/{id}', 'CommentController@store');
 Route::get('form/comment/{id}', 'CommentController@index');
