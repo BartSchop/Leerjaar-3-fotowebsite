@@ -15,6 +15,13 @@
 	<article>
 		<img src="public/images/phpu98V5n.jpg">
 	</article>
+
+	@if ( $likesis == 1 )
+		<p>like - {{ $likesamount }}</p>
+	@else
+		<a href="{{ url('form/like', $forms->id ) }}"><p>Like - {{ $likesamount }}</p></a>
+	@endif
+
 	<hr>
 	@foreach ($comments as $comment)
 		@if ($forms->id == $comment->form_id)
