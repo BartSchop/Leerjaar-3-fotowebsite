@@ -18,7 +18,7 @@
                         </div>
                     @endif
 
-                    <form class="form-horizontal" role="form" method="POST" action="/form/store">
+                    <form class="form-horizontal" role="form" method="POST" id="awesomeForm" action="/form/store">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                         <div class="form-group">
@@ -36,7 +36,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary" style="margin-right: 15px;">
+                                <button type="button" id="postbutton" class="btn btn-primary" style="margin-right: 15px;">
                                     Create
                                 </button>
                                 <a href="/form">Go back</a>
@@ -54,4 +54,12 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    $("#postbutton").on("click",function(){
+        $(this).attr("disabled","disabled")
+        document.forms["awesomeForm"].submit();
+    })
+</script>
 @endsection

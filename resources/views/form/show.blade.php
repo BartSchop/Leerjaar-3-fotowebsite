@@ -22,7 +22,7 @@
 	@if ( $likesis == 1 or $user->status == 2)
 		<p>like - {{ $likesamount }}</p>
 	@else
-		<a href="{{ url('form/like', $forms->id ) }}"><p>Like - {{ $likesamount }}</p></a>
+		<a id="like{{  $forms->id }}" href="#" class="like" ><p>Like - {{ $likesamount }}</p></a>
 	@endif
 
 	@if ($user->status == 10)
@@ -43,7 +43,7 @@
 </div>
 	<a href="/form">Go back</a>
 @if ($user->id == $forms->id)
-	<a href="{{ url('/form/edit', $forms->id) }}"><p>Change form</p></a>
+	<a href="#" ><p>Change form</p></a>
 @endif
 @if ($user->status == 1)
 	<a href="{{ url('/form/comment', $forms->id) }}"><p>Comment</p></a>
@@ -58,4 +58,20 @@
 <div class="comment">
 	
 </div>
+
+<script>
+    $("body").on("click",".like",function(){
+        var id= $(this).attr("id")
+        var cleanid= id.replace("like","")
+        $(this).removeClass("like")
+        $.ajax({
+        	url: "/form/like/"+cleanid,
+        	dataType : "json",
+        	success: function(response){
+        		$("#"+id).empty().html("<p>Like -"+response.likesamount+"</p>")
+        	}
+        })
+
+    })
+</script>
 @stop

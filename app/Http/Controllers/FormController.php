@@ -66,19 +66,9 @@ class FormController extends Controller
                     $userid = $formuser->id;
                 }
             }
-
-            $likesis = 0;
-            $likesamount = 0;
-            foreach ($likes as $like) {
-                if ($forms->id == $like->form_id and \Auth::user()->id == $like->user_id) {
-                    $likesis = 1;
-                } else {
-                }
-                if ($forms->id == $like->form_id) {
-                    $likesamount = $likesamount + 1;
-                } else{
-                }
-            }
+            $likedata=$this->countLikes($likes, $forms);
+            $likesamount=$likedata['likesamount'];
+            $likesis=$likedata['likesis'];
             return view('form.show', compact('forms'), compact('comments', 'likesis', 'likesamount', 'user', 'username', 'userlastname', 'userid') );
         } else {  
             return redirect('auth/login');
@@ -109,17 +99,36 @@ class FormController extends Controller
         if (\Auth::check()) {
             $forms = Form::findorfail($id);
             $userid = \Auth::user();
-
             Like::create([
                 'user_id' => $userid->id,
                 'form_id' => $forms->id,
                 ]);
 
-            return redirect( url('/form', $forms->id ) );
+            $likes = Like::all();
+            $likedata=$this->countLikes($likes, $forms);
+            echo json_encode($likedata);
+            //return redirect( url('/form', $forms->id ) );
             
         } else {  
             return redirect('auth/login');
         }
+       
     }
+    private function countLikes($likes, $forms){
+        $likesis = 0;
+        $likesamount = 0;
+        foreach ($likes as $like) {
+            if ($forms->id == $like->form_id and \Auth::user()->id == $like->user_id) {
+                $likesis = 1;
+            } else {
+            }
+            if ($forms->id == $like->form_id) {
+                $likesamount = $likesamount + 1;
+            } else{
+            }
+        }
+        return array("likesamount"=>$likesamount,"likesis"=>$likesis);
+    }
+
 
 }
