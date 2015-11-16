@@ -18,37 +18,6 @@
                         </div>
                     @endif
 
-                    <form class="form-horizontal" role="form" method="POST" action="/form/store">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Title</label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" name="title" value="{{ old('title') }}" >
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Content</label>
-                            <div class="col-md-6">
-                                <input type="file" class="form-control" name="content" >
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Tag</label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" name="tag" value="{{ old('tag') }}" >
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary" style="margin-right: 15px">
-                                    Create
-                                </button>
-                                <a href="/form">Go back</a>
-                            </div>
-                        </div>
-                    </form>
-
                     {!! Form::open(
                         array(
                             'url' => 'form/store', 
