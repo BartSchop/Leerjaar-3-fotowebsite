@@ -11,11 +11,20 @@
 			padding: 20px ;
 		}
 
+		body {
+			margin: 10px;
+		}
+
 	</style>
 </head>
- 		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<div>
-	@yield('home')
-</div>
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<body>
+	<div>
+		@yield('home')
+	</div>
+</body>
+
 
 </html>

@@ -30,6 +30,7 @@ Route::get('form/create', 'FormController@create');
 Route::post('form/store', 'FormController@store');
 Route::get('form', 'FormController@index');
 Route::post('form/update', 'FormController@update');
+Route::get('form/random', 'FormController@random');
 
 //User Routes
 Route::get('user/form', 'UserController@show');

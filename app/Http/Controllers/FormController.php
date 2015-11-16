@@ -130,5 +130,36 @@ class FormController extends Controller
         return array("likesamount"=>$likesamount,"likesis"=>$likesis);
     }
 
+    public function random()
+    {
+        if (\Auth::check()) {
+            $form = Form::all();
+            $first = $form->first();
+            $last = $form->last();
+
+            $id = mt_rand($first->id, $last->id);
+
+            $forms = Form::findorfail($id);
+            $comments = Comment::all();
+            $users = User::all();
+            $user = \Auth::user();
+            $likes = Like::all();
+
+            foreach ($users as $formuser) {
+                if ($forms->user_id == $formuser->id) {
+                    $username = $formuser->name;
+                    $userlastname = $formuser->lastname;
+                    $userid = $formuser->id;
+                }
+            }
+            $likedata=$this->countLikes($likes, $forms);
+            $likesamount=$likedata['likesamount'];
+            $likesis=$likedata['likesis'];
+            return view('form.show', compact('forms'), compact('comments', 'likesis', 'likesamount', 'user', 'username', 'userlastname', 'userid') );
+        } else {  
+            return redirect('auth/login');
+        }
+    }
+
 
 }

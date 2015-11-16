@@ -6,12 +6,14 @@
     <li><button>Search</button></li>
     <li><div class="col-md-2"><input type="text" class="form-control" name="search"></div></li>
     <li><a href="/">Home</a></li>
-@if ($user->status == 1 or $user->status == 10)
-    <li><a href="create">Create</a></li>
-@endif
-    <li><a href="/auth/logout">logout</a></li>
     <li><a href="/form">Pictures</a></li>
-</ul>
+    @if ($user->status == 1 or $user->status == 10)
+        <li><a href="/form/create">Create</a></li>
+    @endif
+    <li><a href="/user/profile">Your Profile</a></li>
+    <li><a href="auth/logout">Logout</a></li>
+    <li><a href="/form/random" class="btn-success" style="padding: 7px; float: right; margin-right: 10px; border-radius: 3px">Random</a></li>
+</ul> 
 <hr>
 <div>
 	<h4>{{ $forms->title }}</h4>
@@ -20,9 +22,9 @@
 	</article>
 
 	@if ( $likesis == 1 or $user->status == 2)
-		<p>like - {{ $likesamount }}</p>
+		<p>Likes - {{ $likesamount }}</p>
 	@else
-		<a id="like{{  $forms->id }}" href="#" class="like" ><p>Like - {{ $likesamount }}</p></a>
+		<a id="like{{  $forms->id }}" href="#" class="like" ><p>Likes - {{ $likesamount }}</p></a>
 	@endif
 
 	@if ($user->status == 10)
@@ -52,7 +54,6 @@
 	<a href="{{ url('/form/comment', $forms->id) }}"><p>Comment</p></a>
 	<a href="{{ url('/admin/remove/post', $forms->id) }}"><p>Remove</p></a>
 @endif
-	<a href="rand/pic"><p>Random Picture</p></a>
 </div>
 
 <div class="comment">
