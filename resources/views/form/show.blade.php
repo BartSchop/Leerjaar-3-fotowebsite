@@ -18,7 +18,7 @@
 <div>
 	<h4>{{ $forms->title }}</h4>
 	<article>
-		{{ $forms->content }}
+		{!! Html::image(url('images', $forms->content), $forms->content) !!}
 	</article>
 
 	@if ( $likesis == 1 or $user->status == 2)

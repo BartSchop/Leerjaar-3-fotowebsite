@@ -40,12 +40,19 @@ class FormController extends Controller
         $user = \Auth::user();
         $input = Request::all();
 
+        $imageName = $input['content'] . '.' . $input['content']->getClientOriginalExtension();
+
+        $input['content']->move(
+            base_path() . '/public/images/', $imageName
+        );
+
         Form::create([
             'title' => $input['title'],
-            'content' => $input['content'],
+            'content' => str_replace("/tmp/","",$imageName),
             'tag' => $input['tag'],
             'user_id' => $user->id,
-            ]);
+            ]);        
+
         return redirect('/form');
     }
 
