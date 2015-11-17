@@ -51,13 +51,13 @@
 	<a href="{{ url('/form/comment', $forms->id) }}"><p>Comment</p></a>
 	<a href="{{ url('/report/form', $forms->id) }}"><p>Report</p></a>
 	@if ($forms->user_id == $user->id)
-		<a href="{{ url('/update/form', $forms->id) }}">Change post</a>
+		<a href="{{ url('/form/update', $forms->id) }}">Change post</a>
 	@endif
 @elseif ($user->status == 10)
 	<a href="{{ url('/form/comment', $forms->id) }}"><p>Comment</p></a>
 	<a href="{{ url('/admin/remove/post', $forms->id) }}"><p>Remove</p></a>
 	@if ($forms->user_id == $user->id)
-		<a href="{{ url('/update/form', $forms->id) }}">Change post</a>
+		<a href="{{ url('/form/update', $forms->id) }}">Change post</a>
 	@endif
 @endif
 </div>

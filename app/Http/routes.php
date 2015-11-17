@@ -29,7 +29,6 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 Route::get('form/create', 'FormController@create');
 Route::post('form/store', 'FormController@store');
 Route::get('form', 'FormController@index');
-Route::post('form/update', 'FormController@update');
 Route::get('form/random', 'FormController@random');
 
 //User Routes
@@ -38,6 +37,7 @@ Route::get('user/profile', 'UserController@index');
 Route::post('admin/update/user/{id}', 'AdminController@update');
 
 //Id routes
+Route::get('form/update/{id}', 'FormController@update');
 Route::get('report/form/{id}', 'AdminController@report');
 Route::get('admin/remove/post/{id}', 'AdminController@delete');
 Route::get('form/like/{id}', 'FormController@like');
@@ -46,3 +46,4 @@ Route::get('form/comment/{id}', 'CommentController@index');
 Route::get('form/edit/{id}', 'FormController@edit');
 Route::get('form/{id}', 'FormController@show');
 Route::get('admin/user/info/{id}', 'AdminController@show');
+Route::post('form/update/store/{id}', 'FormController@updateForm');

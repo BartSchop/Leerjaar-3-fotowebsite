@@ -84,9 +84,23 @@ class FormController extends Controller
         }
     }
 
-    public function update()
+    public function update($id)
     {
-        return 'Updating.....';
+        $forms = Form::findorfail($id);
+        return view('form.update', compact('forms'));
+    }
+
+    public function updateForm(Request $request, $id)
+    {
+        $forms = Form::findorfail($id);
+        $input = Request::all();
+
+        $form = Form::where('id', $id)->update([
+            'title' => $input['title'],
+            'content' => $input['content'],
+            'tag' => $input['tag'],
+            ]);
+        return redirect(url('/form', $forms->id));
     }
 
     public function destroy($id)
