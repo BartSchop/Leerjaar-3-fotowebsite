@@ -39,6 +39,12 @@
 			<article>
 				{{ $comment->content }}
 			</article>
+			@if ($user->id == $comment->user_id)
+				<a href="{{ url('/comment/update', $comment->id) }}">Change comment</a>
+				<a href="{{ url('/comment/delete', $comment->id) }}"> - Remove</a>
+			@elseif ($user->status == 10)
+				<a href="{{ url('/comment/delete', $comment->id) }}">Remove</a>
+			@endif
 			<hr>
 		@endif
 	@endforeach

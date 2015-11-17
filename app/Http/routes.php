@@ -41,9 +41,14 @@ Route::get('form/update/{id}', 'FormController@update');
 Route::get('report/form/{id}', 'AdminController@report');
 Route::get('form/delete/{id}', 'FormController@destroy');
 Route::get('form/like/{id}', 'FormController@like');
-Route::post('comment/store/{id}', 'CommentController@store');
+
 Route::get('form/comment/{id}', 'CommentController@index');
 Route::get('form/edit/{id}', 'FormController@edit');
 Route::get('form/{id}', 'FormController@show');
 Route::get('admin/user/info/{id}', 'AdminController@show');
 Route::post('form/update/store/{id}', 'FormController@updateForm');
+
+Route::post('comment/store/{id}', 'CommentController@store');
+Route::get('comment/delete/{id}', 'CommentController@destroy');
+Route::get('comment/update/{id}', 'CommentController@update');
+Route::post('comment/update/store/{id}', 'CommentController@updateComment');
