@@ -11,7 +11,7 @@
         <li><a href="/form/create">Create</a></li>
     @endif
     <li><a href="/user/profile">Your Profile</a></li>
-    <li><a href="auth/logout">Logout</a></li>
+    <li><a href="/auth/logout">Logout</a></li>
     <li><a href="/form/random" class="btn-success" style="padding: 7px; float: right; margin-right: 10px; border-radius: 3px">Random</a></li>
 </ul> 
 <hr>
@@ -44,18 +44,17 @@
 	@endforeach
 </div>
 	<a href="/form">Go back</a>
-@if ($user->id == $forms->id)
-	<a href="#" ><p>Change form</p></a>
-@endif
+
 @if ($user->status == 1)
 	<a href="{{ url('/form/comment', $forms->id) }}"><p>Comment</p></a>
 	<a href="{{ url('/report/form', $forms->id) }}"><p>Report</p></a>
 	@if ($forms->user_id == $user->id)
 		<a href="{{ url('/form/update', $forms->id) }}">Change post</a>
+		<a href="{{ url('/form/delete', $forms->id) }}"> - Remove</a>
 	@endif
 @elseif ($user->status == 10)
 	<a href="{{ url('/form/comment', $forms->id) }}"><p>Comment</p></a>
-	<a href="{{ url('/admin/remove/post', $forms->id) }}"><p>Remove</p></a>
+	<a href="{{ url('/form/delete', $forms->id) }}"><p>Remove</p></a>
 	@if ($forms->user_id == $user->id)
 		<a href="{{ url('/form/update', $forms->id) }}">Change post</a>
 	@endif

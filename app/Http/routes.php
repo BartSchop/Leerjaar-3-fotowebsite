@@ -39,7 +39,7 @@ Route::post('admin/update/user/{id}', 'AdminController@update');
 //Id routes
 Route::get('form/update/{id}', 'FormController@update');
 Route::get('report/form/{id}', 'AdminController@report');
-Route::get('admin/remove/post/{id}', 'AdminController@delete');
+Route::get('form/delete/{id}', 'FormController@destroy');
 Route::get('form/like/{id}', 'FormController@like');
 Route::post('comment/store/{id}', 'CommentController@store');
 Route::get('form/comment/{id}', 'CommentController@index');

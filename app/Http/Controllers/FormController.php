@@ -105,7 +105,9 @@ class FormController extends Controller
 
     public function destroy($id)
     {
-        return 'Deleting.....';
+        $comment = Comment::where('form_id', $id)->delete();
+        $form = Form::where('id', $id)->delete();
+        return redirect('/form');
     }
 
     public function like(Request $request, $id)
