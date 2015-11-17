@@ -85,11 +85,21 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        //
+        $comments = Comment::findorfail($id);
+        return view('comment.update', compact('comments'));
     }
 
+    public function updateComment(Request $request, $id)
+    {
+        $input = Request::all();
+
+        $comment = Comment::where('id', $id)->update([
+            'content' => $input['content'],
+            ]);
+        return redirect('/form');
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -98,6 +108,7 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $comment = Comment::where('id', $id)->delete();
+        return redirect('/form');
     }
 }
