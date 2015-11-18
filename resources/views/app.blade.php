@@ -10,11 +10,13 @@
 			text-decoration: none ;
 			padding: 20px ;
 		}
-
 		body {
 			margin: 10px;
+			background-color : #E3E7E8;
 		}
-
+		.index{
+			border: 1px solid white;
+		}
 	</style>
 </head>
 

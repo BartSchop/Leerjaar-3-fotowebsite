@@ -2,11 +2,11 @@
 
 @section('home')
 <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/user/form">Your Posts</a></li>
-    <li><a href="user/favorite">Liked Pictures</a></li>
-    <li><a href="/auth/logout">Logout</a></li>
-    <li><a href="/user/messages">Inbox</a></li>
+    <li><a href="/" class="btn-success" style="padding: 7px; border-radius: 3px">Home</a></li>
+    <li><a href="/user/form" class="btn-success" style="padding: 7px; border-radius: 3px">Your Posts</a></li>
+    <li><a href="user/favorite" class="btn-success" style="padding: 7px; border-radius: 3px">Liked Pictures</a></li>
+    <li><a href="/auth/logout" class="btn-success" style="padding: 7px; border-radius: 3px">Logout</a></li>
+    <li><a href="/user/messages" class="btn-success" style="padding: 7px; border-radius: 3px">Inbox</a></li>
 </ul>
 <hr>
 

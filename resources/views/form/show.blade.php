@@ -5,32 +5,26 @@
 <ul>
     <li><button>Search</button></li>
     <li><div class="col-md-2"><input type="text" class="form-control" name="search"></div></li>
-    <li><a href="/">Home</a></li>
-    <li><a href="/form">Pictures</a></li>
+    <li><a href="/" class="btn-success" style="padding: 7px; border-radius: 3px">Home</a></li>
+    <li><a href="/form" class="btn-success" style="padding: 7px; border-radius: 3px">Pictures</a></li>
     @if ($user->status == 1 or $user->status == 10)
-        <li><a href="/form/create">Create</a></li>
+        <li><a href="/form/create" class="btn-success" style="padding: 7px; border-radius: 3px">Create</a></li>
     @endif
-    <li><a href="/user/profile">Your Profile</a></li>
-    <li><a href="/auth/logout">Logout</a></li>
+    <li><a href="/user/profile" class="btn-success" style="padding: 7px; border-radius: 3px">Your Profile</a></li>
+    <li><a href="/auth/logout" class="btn-success" style="padding: 7px; border-radius: 3px">Logout</a></li>
     <li><a href="/form/random" class="btn-success" style="padding: 7px; float: right; margin-right: 10px; border-radius: 3px">Random</a></li>
 </ul> 
 <hr>
 <div>
 	<h4>{{ $forms->title }}</h4>
-	<article>
+	<div>
 		{!! Html::image(url('images', $forms->content), $forms->content) !!}
-	</article>
+	</div>
 
 	@if ( $likesis == 1 or $user->status == 2)
 		<p>Likes - {{ $likesamount }}</p>
 	@else
 		<a id="like{{  $forms->id }}" href="#" class="like" ><p>Likes - {{ $likesamount }}</p></a>
-	@endif
-
-	@if ($user->status == 10)
-		<p>Uploaded by - <a href="{{ url('admin/user/info', $userid) }}">{{$username}} {{$userlastname}}</a></p>
-	@else
-		<p>Uploaded by - {{$username}} {{$userlastname}}</p>
 	@endif
 
 	<hr>
@@ -49,27 +43,27 @@
 		@endif
 	@endforeach
 </div>
-	<a href="/form">Go back</a>
 
+<ul>
 @if ($user->status == 1)
-	<a href="{{ url('/form/comment', $forms->id) }}"><p>Comment</p></a>
-	<a href="{{ url('/report/form', $forms->id) }}"><p>Report</p></a>
+	<li><a href="{{ url('/form/comment', $forms->id) }}" class="btn-success" style="padding: 7px; border-radius: 3px">Comment</a></li>
+	<li><a href="{{ url('/report/form', $forms->id) }}" class="btn-success" style="padding: 7px; border-radius: 3px">Report</a></li>
 	@if ($forms->user_id == $user->id)
-		<a href="{{ url('/form/update', $forms->id) }}">Change post</a>
-		<a href="{{ url('/form/delete', $forms->id) }}"> - Remove</a>
+		<li><a href="{{ url('/form/update', $forms->id) }}" class="btn-success" style="padding: 7px; border-radius: 3px">Change post</a></li>
+		<li><a href="{{ url('/form/delete', $forms->id) }}" class="btn-success" style="padding: 7px; border-radius: 3px">Remove</a></li>
 	@endif
 @elseif ($user->status == 10)
-	<a href="{{ url('/form/comment', $forms->id) }}"><p>Comment</p></a>
-	<a href="{{ url('/form/delete', $forms->id) }}"><p>Remove</p></a>
+	<li><a href="{{ url('/form/comment', $forms->id) }}" class="btn-success" style="padding: 7px; border-radius: 3px">Comment</a></li>
+	<li><a href="{{ url('/form/delete', $forms->id) }}">Remove</a></li>
 	@if ($forms->user_id == $user->id)
-		<a href="{{ url('/form/update', $forms->id) }}">Change post</a>
+		<li><a href="{{ url('/form/update', $forms->id) }}" class="btn-success" style="padding: 7px; border-radius: 3px">Change post</a></li>
 	@endif
 @endif
+	<li><a href="/form" class="btn-success" style="padding: 7px; border-radius: 3px">Go back</a></li>
+</ul>
 </div>
 
-<div class="comment">
-	
-</div>
+
 
 <script>
     $("body").on("click",".like",function(){

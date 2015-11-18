@@ -19,8 +19,10 @@ class FormController extends Controller
         if (\Auth::check()) {
             $forms = Form::all();
             $user = \Auth::user();
+            $users = User::all();
+            $likes = Like::all();
 
-            return view('form.index', compact('forms', 'user'));
+            return view('form.index', compact('forms', 'user', 'users', 'likes'));
         } else {  
             return redirect('auth/login');
         }
@@ -66,17 +68,11 @@ class FormController extends Controller
             $user = \Auth::user();
             $likes = Like::all();
 
-            foreach ($users as $formuser) {
-                if ($forms->user_id == $formuser->id) {
-                    $username = $formuser->name;
-                    $userlastname = $formuser->lastname;
-                    $userid = $formuser->id;
-                }
-            }
             $likedata=$this->countLikes($likes, $forms);
             $likesamount=$likedata['likesamount'];
             $likesis=$likedata['likesis'];
-            return view('form.show', compact('forms'), compact('comments', 'likesis', 'likesamount', 'user', 'username', 'userlastname', 'userid') );
+
+            return view('form.show', compact('comments', 'likesis', 'likesamount', 'user', 'forms') );
         } else {  
             return redirect('auth/login');
         }
