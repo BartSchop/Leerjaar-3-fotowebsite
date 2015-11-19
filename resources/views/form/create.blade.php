@@ -31,6 +31,13 @@
                             {!! Form::text('title', null, array('class'=>'form-control')) !!}
                         </div>
                     </div>
+                    
+                    <div class="form-group">
+                        {!! Form::label('Description', null, array('class'=>'col-md-4 control-label')) !!}
+                        <div class="col-md-6">
+                            {!! Form::text('description', null, array('class'=>'form-control')) !!}
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         {!! Form::label('Content', null, array('class'=>'col-md-4 control-label')) !!}

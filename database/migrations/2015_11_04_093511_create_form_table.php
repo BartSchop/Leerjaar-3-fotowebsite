@@ -16,6 +16,7 @@ class CreateFormTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('content');
+            $table->string('description');
             $table->integer('user_id');
             $table->string('tag');
             $table->timestamps();

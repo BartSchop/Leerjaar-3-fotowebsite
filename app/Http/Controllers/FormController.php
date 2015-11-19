@@ -16,16 +16,9 @@ class FormController extends Controller
 {
     public function index()
     {
-        if (\Auth::check()) {
-            $forms = Form::all();
-            $user = \Auth::user();
+            $forms = Form::orderBy('created_at', 'DESC')->get();
             $users = User::all();
-            $likes = Like::all();
-
-            return view('form.index', compact('forms', 'user', 'users', 'likes'));
-        } else {  
-            return redirect('auth/login');
-        }
+            return view('welcome', compact('forms', 'users'));
     }
 
     public function create()
@@ -41,9 +34,7 @@ class FormController extends Controller
     {
         $user = \Auth::user();
         $input = Request::all();
-
         $imageName = $input['content'] . '.' . $input['content']->getClientOriginalExtension();
-
         $input['content']->move(
             base_path() . '/public/images/', $imageName
         );
@@ -51,17 +42,15 @@ class FormController extends Controller
         Form::create([
             'title' => $input['title'],
             'content' => str_replace("/tmp/","",$imageName),
+            'description' =>$input['description'],
             'tag' => $input['tag'],
             'user_id' => $user->id,
             ]);        
-
         return redirect('/form');
     }
 
-
     public function show($id)
     {
-        if (\Auth::check()) {
             $forms = Form::findorfail($id);
             $comments = Comment::all();
             $users = User::all();
@@ -72,10 +61,7 @@ class FormController extends Controller
             $likesamount=$likedata['likesamount'];
             $likesis=$likedata['likesis'];
 
-            return view('form.show', compact('comments', 'likesis', 'likesamount', 'user', 'forms') );
-        } else {  
-            return redirect('auth/login');
-        }
+            return view('form.show', compact('comments', 'likesis', 'likesamount', 'user', 'forms'));
     }
 
     public function edit($id)
@@ -97,10 +83,9 @@ class FormController extends Controller
     {
         $forms = Form::findorfail($id);
         $input = Request::all();
-
         $form = Form::where('id', $id)->update([
             'title' => $input['title'],
-            'content' => $input['content'],
+            'description' => $input['description'],
             'tag' => $input['tag'],
             ]);
         return redirect(url('/form', $forms->id));
@@ -112,6 +97,11 @@ class FormController extends Controller
         $form = Form::where('id', $id)->delete();
         return redirect('/form');
     }
+    public function destroyConfirm($id)
+    {
+        $form = Form::where('id', $id)->first();
+        return view('form.confirm', compact('form'));
+    }
 
     public function like(Request $request, $id)
     {
@@ -122,11 +112,9 @@ class FormController extends Controller
                 'user_id' => $userid->id,
                 'form_id' => $forms->id,
                 ]);
-
             $likes = Like::all();
             $likedata=$this->countLikes($likes, $forms);
             echo json_encode($likedata);
-            //return redirect( url('/form', $forms->id ) );
             
         } else {  
             return redirect('auth/login');
@@ -139,11 +127,9 @@ class FormController extends Controller
         foreach ($likes as $like) {
             if ($forms->id == $like->form_id and \Auth::user()->id == $like->user_id) {
                 $likesis = 1;
-            } else {
             }
             if ($forms->id == $like->form_id) {
                 $likesamount = $likesamount + 1;
-            } else{
             }
         }
         return array("likesamount"=>$likesamount,"likesis"=>$likesis);
@@ -161,8 +147,6 @@ class FormController extends Controller
               $forms = Form::find($id);
             } while (!$forms);
         
-            
-
             $comments = Comment::all();
             $users = User::all();
             $user = \Auth::user();
@@ -183,6 +167,4 @@ class FormController extends Controller
             return redirect('auth/login');
         }
     }
-
-
 }

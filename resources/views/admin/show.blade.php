@@ -39,7 +39,7 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">1 - Default, 2 - locked, 3 - banned</label>
+                            <label class="col-md-4 control-label">1 - Default, 2 - locked, 10 - admin</label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="number" value="{{ old('number') }}">
                             </div>

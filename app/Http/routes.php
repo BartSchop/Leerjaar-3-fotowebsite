@@ -11,11 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-
+Route::get('/', 'FormController@index');
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
@@ -49,6 +46,7 @@ Route::get('admin/user/info/{id}', 'AdminController@show');
 Route::post('form/update/store/{id}', 'FormController@updateForm');
 
 Route::post('comment/store/{id}', 'CommentController@store');
+Route::get('form/delete/confirm/{id}', 'FormController@destroyConfirm');
 Route::get('comment/delete/{id}', 'CommentController@destroy');
 Route::get('comment/update/{id}', 'CommentController@update');
 Route::post('comment/update/store/{id}', 'CommentController@updateComment');

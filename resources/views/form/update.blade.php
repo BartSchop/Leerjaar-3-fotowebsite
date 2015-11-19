@@ -21,34 +21,31 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/form/update/store', $forms->id) }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Title</label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" name="title" value="{{ $forms->title }}">
-                            </div>
+                    <div class="form-group">
+                        {!! Form::label('Title', null, array('class'=>'col-md-4 control-label')) !!}
+                        <div class="col-md-6">
+                            {!! Form::text('title', $forms->title, array('class'=>'form-control')) !!}
                         </div>
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('Description', null, array('class'=>'col-md-4 control-label')) !!}
+                        <div class="col-md-6">
+                            {!! Form::text('description', $forms->description, array('class'=>'form-control')) !!}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('Tag', null, array('class'=>'col-md-4 control-label')) !!}
+                        <div class="col-md-6">
+                            {!! Form::text('tag', $forms->tag, array('class'=>'form-control')) !!}
+                        </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Content</label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" name="content" value="{{ $forms->content }}">
-                            </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-4">
+                            {!! Form::submit('Update', array('class'=>'btn btn-primary', 'style'=>'margin-right: 15px')) !!}
+                            <a href="/form">Go back</a>
                         </div>
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Tag</label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" name="tag" value="{{ $forms->tag }}">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Update
-                                </button>
-                            </div>
-                        </div>
+                    </div>
                     </form>
                 </div>
             </div>
