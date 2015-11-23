@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Request;
 use App\User;
+use App\Form;
+use App\Message;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -16,7 +18,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        $messages = Message::all();
+        return view('admin.inbox', compact('messages'));
     }
 
     /**
@@ -29,23 +32,15 @@ class AdminController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function showMessage($id)
     {
-        //
+        $messages = Message::findorfail($id);
+        $users = User::all();
+        $forms = Form::all();
+
+        return view('user.message', compact('users', 'messages', 'forms'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $user = User::findorfail($id);
@@ -92,6 +87,22 @@ class AdminController extends Controller
 
     public function report($id)
     {
-        return $id;
+        $forms = Form::findorfail($id);
+        return view('admin.report', compact('forms'));
+    }
+
+    public function store(Request $request, $id)
+    {
+        $user = \Auth::user();
+        $form = Form::findorfail($id);
+        $input = Request::all();
+
+        Message::create([
+            'user_id' => $user['id'],
+            'form_id' => $form['id'],
+            'content' => $input['content'],
+            'type' => $input['type'],
+            ]);
+        return redirect('/form');
     }
 }

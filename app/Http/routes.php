@@ -32,7 +32,7 @@ Route::get('form/random', 'FormController@random');
 Route::get('user/form', 'UserController@show');
 Route::get('user/profile', 'UserController@index');
 Route::post('admin/update/user/{id}', 'AdminController@update');
-
+Route::get('admin/inbox', 'AdminController@index');
 //Id routes
 Route::get('form/update/{id}', 'FormController@update');
 Route::get('report/form/{id}', 'AdminController@report');
@@ -50,7 +50,8 @@ Route::get('form/delete/confirm/{id}', 'FormController@destroyConfirm');
 Route::get('comment/delete/{id}', 'CommentController@destroy');
 Route::get('comment/update/{id}', 'CommentController@update');
 Route::post('comment/update/store/{id}', 'CommentController@updateComment');
-
+Route::post('admin/report/store/{id}', 'AdminController@store');
+Route::get('message/{id}', 'AdminController@showMessage');
 // Password reset link request routes...
 Route::get('password/email', 'Auth\PasswordController@getEmail');
 Route::post('password/email', 'Auth\PasswordController@postEmail');

@@ -6,7 +6,7 @@
     <li><a href="/user/form" class="btn-success" style="padding: 7px; border-radius: 3px">Your Posts</a></li>
     <li><a href="user/favorite" class="btn-success" style="padding: 7px; border-radius: 3px">Liked Pictures</a></li>
     <li><a href="/auth/logout" class="btn-success" style="padding: 7px; border-radius: 3px">Logout</a></li>
-    <li><a href="/user/messages" class="btn-success" style="padding: 7px; border-radius: 3px">Inbox</a></li>
+    <li><a href="/admin/inbox" class="btn-success" style="padding: 7px; border-radius: 3px">Inbox</a></li>
 </ul>
 <hr>
 
