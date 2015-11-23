@@ -50,3 +50,11 @@ Route::get('form/delete/confirm/{id}', 'FormController@destroyConfirm');
 Route::get('comment/delete/{id}', 'CommentController@destroy');
 Route::get('comment/update/{id}', 'CommentController@update');
 Route::post('comment/update/store/{id}', 'CommentController@updateComment');
+
+// Password reset link request routes...
+Route::get('password/email', 'Auth\PasswordController@getEmail');
+Route::post('password/email', 'Auth\PasswordController@postEmail');
+
+// Password reset routes...
+Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+Route::post('password/reset', 'Auth\PasswordController@postReset');
