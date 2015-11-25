@@ -167,4 +167,12 @@ class FormController extends Controller
             return redirect('auth/login');
         }
     }
+
+    public function search(Request $request)
+    {
+        $input = Request::all();
+        $users = User::all();
+        $forms = Form::where('tag', $input['tag'])->get();
+        return view('welcome', compact('forms', 'users'));
+    }
 }

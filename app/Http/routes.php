@@ -33,6 +33,7 @@ Route::get('user/form', 'UserController@show');
 Route::get('user/profile', 'UserController@index');
 Route::post('admin/update/user/{id}', 'AdminController@update');
 Route::get('admin/inbox', 'AdminController@index');
+Route::post('search', 'FormController@search');
 //Id routes
 Route::get('form/update/{id}', 'FormController@update');
 Route::get('report/form/{id}', 'AdminController@report');

@@ -2,9 +2,7 @@
 
 @section('home')
 <ul>
-    	<li><a class="btn-success" style="padding: 7px; border-radius: 3px">Search</a></li>
-    	<li><div class="col-md-2"><input type="text" class="form-control" name="search"></div></li>
-        <li><a href="/" class="btn-success" style="padding: 7px; border-radius: 3px">Home</a></li>
+        <li><a href="/" class="btn-success" style="padding: 7px; border-radius: 3px">Home</a></li>      
     @if (\Auth::check())
         <li><a href="/form/create" class="btn-success" style="padding: 7px; border-radius: 3px">Create</a></li>
     	<li><a href="user/profile" class="btn-success" style="padding: 7px; border-radius: 3px">Your Profile</a></li>
@@ -13,6 +11,15 @@
 	    <li><a href="auth/login" class="btn-success" style="padding: 7px; border-radius: 3px">Login</a></li>
     	<li><a href="auth/register" class="btn-success" style="padding: 7px; border-radius: 3px">Register</a></li>
 	@endif
+		<form class="form-horizontal" role="form" method="POST" action="/search">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <div class="col-md-2">
+            	<li><input type="tag" class="form-control" name="tag"></li>
+            </div>
+            <div>
+            	<li><button type="submit" class="btn-success" style="padding: 7px; border-radius: 3px">Search</button></li>
+        	</div>
+        </form>
 </ul>
 <hr>
 
