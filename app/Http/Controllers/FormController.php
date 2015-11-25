@@ -18,7 +18,25 @@ class FormController extends Controller
     {
             $forms = Form::orderBy('created_at', 'DESC')->get();
             $users = User::all();
-            return view('welcome', compact('forms', 'users'));
+            $sort = 'new';
+
+            return view('welcome', compact('forms', 'users', 'sort'));
+    }
+
+    public function sort()
+    {
+            $input = Request::all();
+            if ($input['sort'] == 'old') {
+                $forms = Form::orderBy('created_at', 'ASC')->get();
+                $users = User::all();   
+            } else {
+                $forms = Form::orderBy('created_at', 'DESC')->get();
+                $users = User::all();   
+            }
+
+            $sort = $input['sort'];
+
+            return view('welcome', compact('forms', 'users', 'sort'));
     }
 
     public function create()

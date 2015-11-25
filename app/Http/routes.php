@@ -13,6 +13,7 @@
 
 
 Route::get('/', 'FormController@index');
+Route::post('/', 'FormController@sort');
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');

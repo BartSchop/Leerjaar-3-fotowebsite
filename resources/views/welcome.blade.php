@@ -22,7 +22,25 @@
         </form>
 </ul>
 <hr>
+{!! Form::open(
+    array(
+        'url' => '/')) !!}
+    <div class="form-group">
 
+        {!! Form::label('Sort by', null, array('class'=>'')) !!}
+
+        {!! Form::select('sort', [
+           'new' => 'Newest',
+           'old' => 'Oldest'],
+           $sort
+        ) !!}
+        
+        {!! Form::submit('Sort', null, array('class'=>'')) !!}
+
+    </div>
+
+{!! Form::close() !!}
+<hr>
 <div class="col-md-6">
 	@foreach ($forms as $form)
         <div class="index">
