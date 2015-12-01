@@ -7,9 +7,11 @@
         <li><a href="/form/create" class="btn-success" style="padding: 7px; border-radius: 3px">Create</a></li>
     	<li><a href="user/profile" class="btn-success" style="padding: 7px; border-radius: 3px">Your Profile</a></li>
 	    <li><a href="auth/logout" class="btn-success" style="padding: 7px; border-radius: 3px">Logout</a></li>
+        <li><a href="/form/random" class="btn-success" style="padding: 7px; float: right; margin-right: 10px; border-radius: 3px">Random</a></li>
 	@else
 	    <li><a href="auth/login" class="btn-success" style="padding: 7px; border-radius: 3px">Login</a></li>
     	<li><a href="auth/register" class="btn-success" style="padding: 7px; border-radius: 3px">Register</a></li>
+        <li><a href="/form/random" class="btn-success" style="padding: 7px; float: right; margin-right: 10px; border-radius: 3px">Random</a></li>
 	@endif
 		<form class="form-horizontal" role="form" method="POST" action="/search">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -31,8 +33,9 @@
 
         {!! Form::select('sort', [
            'new' => 'Newest',
-           'old' => 'Oldest'],
-           $sort
+           'old' => 'Oldest',
+           'likes' => 'Most Liked'],
+           isset($sort) ? $sort : 'new'
         ) !!}
         
         {!! Form::submit('Sort', null, array('class'=>'')) !!}
@@ -49,7 +52,8 @@
     		</article>
                 @foreach ($users as $userinfo)
                     @if ($form->user_id == $userinfo->id)
-                            <p>Uploaded by - {{$userinfo->name}} {{$userinfo->lastname}}</p>
+                            <p>Uploaded by - {{$userinfo->name}} {{$userinfo->lastname}} <br>
+                            Likes - {{$form->likes}}</p>
                     @endif
                 @endforeach
         </div>

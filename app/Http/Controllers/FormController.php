@@ -17,8 +17,13 @@ class FormController extends Controller
     public function index()
     {
             $forms = Form::orderBy('created_at', 'DESC')->get();
+            
+            foreach ($forms as $form) {
+                $likes = Like::where('form_id', $form->id)->count();  
+                array_add($form, 'likes', $likes);           
+            }
+
             $users = User::all();
-            $sort = 'new';
 
             return view('welcome', compact('forms', 'users', 'sort'));
     }
@@ -28,7 +33,19 @@ class FormController extends Controller
             $input = Request::all();
             if ($input['sort'] == 'old') {
                 $forms = Form::orderBy('created_at', 'ASC')->get();
+                foreach ($forms as $form) {
+                    $likes = Like::where('form_id', $form->id)->count();  
+                    array_add($form, 'likes', $likes);           
+                }
                 $users = User::all();   
+            } elseif ($input['sort'] == 'likes') {
+                $forms = Form::orderBy('created_at', 'ASC')->get();
+                foreach ($forms as $form) {
+                    $likes = Like::where('form_id', $form->id)->count();  
+                    array_add($form, 'likes', $likes);           
+                }
+                $forms = $forms->sortByDesc('likes');
+                $users = User::all();
             } else {
                 $forms = Form::orderBy('created_at', 'DESC')->get();
                 $users = User::all();   
