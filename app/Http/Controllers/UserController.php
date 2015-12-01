@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Request;
 use App\Form;
 use App\Comment;
+use App\Like;
+use App\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -18,8 +20,7 @@ class UserController extends Controller
     public function index()
     {
         $user = \Auth::user();
-        $status = $user->status;
-        return view('user.index', compact('status'));
+        return view('user.index', compact('user'));
     }
 
     /**
@@ -27,9 +28,12 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function liked()
     {
-        //
+        $forms = Form::all();
+        $comments = Comment::all();
+        $likes = Like::all();
+        return view('user.likes', compact('forms', 'comments', 'likes'));
     }
 
     /**
@@ -77,7 +81,14 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = Request::all();
+        $user = User::where('id', $id)->update([
+                'name' => $input['name'],
+                'lastname' => $input['lastname'],
+                'username' => $input['username'],
+                'email' => $input['email'],
+            ]);
+        return redirect('user/profile');
     }
 
     /**
