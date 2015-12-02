@@ -32,6 +32,7 @@ Route::get('form/random', 'FormController@random');
 //User Routes
 Route::get('user/form', 'UserController@show');
 Route::get('user/profile', 'UserController@index');
+Route::get('user/favorites', 'UserController@liked');
 Route::post('admin/update/user/{id}', 'AdminController@update');
 Route::get('admin/inbox', 'AdminController@index');
 Route::post('search', 'FormController@search');
@@ -46,6 +47,7 @@ Route::get('form/edit/{id}', 'FormController@edit');
 Route::get('form/{id}', 'FormController@show');
 Route::get('admin/user/info/{id}', 'AdminController@show');
 Route::post('form/update/store/{id}', 'FormController@updateForm');
+Route::post('user/change/{id}', 'UserController@update');
 
 Route::post('comment/store/{id}', 'CommentController@store');
 Route::get('form/delete/confirm/{id}', 'FormController@destroyConfirm');

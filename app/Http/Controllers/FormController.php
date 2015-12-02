@@ -130,6 +130,7 @@ class FormController extends Controller
     {
         $comment = Comment::where('form_id', $id)->delete();
         $form = Form::where('id', $id)->delete();
+        $like = Like::where('form_id', $id)->delete();
         return redirect('/form');
     }
     public function destroyConfirm($id)
@@ -207,7 +208,8 @@ class FormController extends Controller
     {
         $input = Request::all();
         $users = User::all();
+        $sort = 'new';
         $forms = Form::where('tag', $input['tag'])->get();
-        return view('welcome', compact('forms', 'users'));
+        return view('welcome', compact('forms', 'users', 'sort'));
     }
 }
