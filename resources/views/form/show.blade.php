@@ -30,6 +30,7 @@
 			<a id="like{{  $forms->id }}" href="#" class="like" ><p>Like - {{ $likesamount }}</p></a>
 		@endif
 	@else
+		<p>Views - {{ $forms->views }}</p>
 		<p>Like - {{ $likesamount }}</p>
 	@endif
 

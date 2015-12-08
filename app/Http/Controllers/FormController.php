@@ -46,8 +46,19 @@ class FormController extends Controller
                 }
                 $forms = $forms->sortByDesc('likes');
                 $users = User::all();
+            } elseif ($input['sort'] == 'views') {
+                $forms = Form::orderBy('views', 'DESC')->get();
+                foreach ($forms as $form) {
+                    $likes = Like::where('form_id', $form->id)->count();  
+                    array_add($form, 'likes', $likes);           
+                }
+                $users = User::all();
             } else {
                 $forms = Form::orderBy('created_at', 'DESC')->get();
+                foreach ($forms as $form) {
+                    $likes = Like::where('form_id', $form->id)->count();  
+                    array_add($form, 'likes', $likes);           
+                }
                 $users = User::all();   
             }
 
@@ -86,6 +97,7 @@ class FormController extends Controller
 
     public function show($id)
     {
+            Form::find($id)->increment('views');
             $forms = Form::findorfail($id);
             $comments = Comment::all();
             $users = User::all();
@@ -173,35 +185,32 @@ class FormController extends Controller
 
     public function random()
     {
-        if (\Auth::check()) {
-            $form = Form::all();
-            $first = $form->first();
-            $last = $form->last();
+        $form = Form::all();
+        $first = $form->first();
+        $last = $form->last();
 
-            do {
-              $id = mt_rand($first->id, $last->id);
-              $forms = Form::find($id);
-            } while (!$forms);
-        
-            $comments = Comment::all();
-            $users = User::all();
-            $user = \Auth::user();
-            $likes = Like::all();
+        do {
+          $id = mt_rand($first->id, $last->id);
+          $forms = Form::find($id);
+        } while (!$forms);
+    
+        Form::find($forms->id)->increment('views');        
+        $comments = Comment::all();
+        $users = User::all();
+        $user = \Auth::user();
+        $likes = Like::all();
 
-            foreach ($users as $formuser) {
-                if ($forms->user_id == $formuser->id) {
-                    $username = $formuser->name;
-                    $userlastname = $formuser->lastname;
-                    $userid = $formuser->id;
-                }
+        foreach ($users as $formuser) {
+            if ($forms->user_id == $formuser->id) {
+                $username = $formuser->name;
+                $userlastname = $formuser->lastname;
+                $userid = $formuser->id;
             }
-            $likedata=$this->countLikes($likes, $forms);
-            $likesamount=$likedata['likesamount'];
-            $likesis=$likedata['likesis'];
-            return view('form.show', compact('forms'), compact('comments', 'likesis', 'likesamount', 'user', 'username', 'userlastname', 'userid') );
-        } else {  
-            return redirect('auth/login');
         }
+        $likedata=$this->countLikes($likes, $forms);
+        $likesamount=$likedata['likesamount'];
+        $likesis=$likedata['likesis'];
+        return view('form.show', compact('forms'), compact('comments', 'likesis', 'likesamount', 'user', 'username', 'userlastname', 'userid') );
     }
 
     public function search(Request $request)

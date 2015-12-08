@@ -34,7 +34,8 @@
         {!! Form::select('sort', [
            'new' => 'Newest',
            'old' => 'Oldest',
-           'likes' => 'Most Liked'],
+           'likes' => 'Most Liked',
+           'views' => 'Most Viewed'],
            isset($sort) ? $sort : 'new'
         ) !!}
         
@@ -53,7 +54,8 @@
                 @foreach ($users as $userinfo)
                     @if ($form->user_id == $userinfo->id)
                             <p>Uploaded by - {{$userinfo->name}} {{$userinfo->lastname}} <br>
-                            Likes - {{$form->likes}}</p>
+                            Likes - {{$form->likes}} <br>
+                            Views - {{$form->views}}</p>
                     @endif
                 @endforeach
         </div>
