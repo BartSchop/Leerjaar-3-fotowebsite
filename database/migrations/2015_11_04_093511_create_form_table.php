@@ -19,6 +19,7 @@ class CreateFormTable extends Migration
             $table->string('description');
             $table->integer('user_id');
             $table->string('tag');
+            $table->integer('views');
             $table->timestamps();
         });
     }
